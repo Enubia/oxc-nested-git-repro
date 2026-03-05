@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "no-debugger": "error",
+    "no-console": "warn",
+    "eqeqeq": "error"
+  }
+}
