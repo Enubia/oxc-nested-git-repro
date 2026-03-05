@@ -21,10 +21,18 @@ packages/app-b/src/index.js  ← NOT linted by LSP ❌
 ## Steps to reproduce
 
 1. Clone this repo
-2. Open the root folder in VS Code with the oxc extension (v1.48.0+)
-3. Open `src/index.js` — diagnostics appear (eqeqeq, no-console, no-debugger)
-4. Open `packages/app-a/src/index.js` — **no diagnostics** shown
-5. Run `npx oxlint` from root — CLI correctly reports issues in all files
+2. Clone the nested sub-repos:
+   ```sh
+   git clone git@github.com:Enubia/app-a.git packages/app-a
+   git clone git@github.com:Enubia/app-b.git packages/app-b
+   ```
+3. Open the root folder in VS Code with the oxc extension (v1.48.0+)
+4. Comment out `packages/app-*` in `.gitignore`
+5. Open `packages/app-a/src/index.js` — diagnostics appear
+6. Uncomment `packages/app-*` in `.gitignore`
+7. Restart the oxlint server — diagnostics in `packages/app-a/src/index.js` **stop working**
+8. Open `src/index.js` — diagnostics still appear (eqeqeq, no-console, no-debugger)
+9. Run `npx oxlint` from root — CLI correctly reports issues in all files
 
 ## Expected
 
