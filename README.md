@@ -4,7 +4,7 @@ Minimal reproduction for [oxc-project/oxc-vscode#112](https://github.com/oxc-pro
 
 ## Issue
 
-The oxc VS Code extension LSP does not lint files inside subdirectories that are standalone git repos (have their own `.git/`).
+The oxc VS Code extension LSP does not lint files that are listed in `.gitignore`. This is not specific to nested git repos.
 
 ## Structure
 
@@ -12,10 +12,8 @@ The oxc VS Code extension LSP does not lint files inside subdirectories that are
 .git/                      ← root git repo
 .oxlintrc.json             ← shared lint config
 src/index.js               ← linted correctly ✅
-packages/app-a/.git/       ← nested git repo
-packages/app-a/src/index.js  ← NOT linted by LSP ❌
-packages/app-b/.git/       ← nested git repo
-packages/app-b/src/index.js  ← NOT linted by LSP ❌
+packages/app-a/src/index.js  ← NOT linted by LSP (gitignored) ❌
+packages/app-b/src/index.js  ← NOT linted by LSP (gitignored) ❌
 ```
 
 ## Steps to reproduce
@@ -40,7 +38,7 @@ LSP lints files in `packages/app-*/src/` using the root `.oxlintrc.json`.
 
 ## Actual
 
-LSP ignores all files inside nested git repos.
+LSP ignores all files matched by `.gitignore`.
 
 ## Workaround
 
